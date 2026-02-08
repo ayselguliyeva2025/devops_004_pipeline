@@ -1,0 +1,110 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven3'
+        jdk 'Java21'
+    }
+
+    stages {
+
+        stage('Clean Workspace') {
+            steps {
+                cleanWs() // Çalışma alanını temizle
+            }
+        }
+
+	   stage('GitHub') {
+            steps {
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mimaraslan/devops_004_pipeline']])
+            }
+        }
+
+        stage('Test') {
+            steps {
+            script {
+                    if (isUnix()) {
+                        sh "mvn test"   // Linux ve MacOS için
+                    } else {
+                        bat "mvn test"  // Windows için
+                    }
+                }
+            }
+        }
+
+	 stage('Build Maven') {
+            steps {
+            script {
+                    if (isUnix()) {
+                        sh "mvn clean install"
+                    } else {
+                        bat "mvn clean install"
+                    }
+                }
+            }
+	 }
+
+
+
+/*
+        stage('Docker Image') {
+            steps {
+                 script {
+                    if (isUnix()) {
+                        sh 'docker build  -t  mimaraslan/devops-application:latest  .'
+                    } else {
+                        bat 'docker build  -t  mimaraslan/devops-application:latest  .'
+                    }
+                }
+            }
+        }
+
+        stage('DockerHub') {
+            steps {
+                echo "Image DockerHub'a gönder."
+                 script {
+                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+
+
+                            if (isUnix()) {
+                             //   sh 'docker login    -u mimaraslan     -p   %dockerhub%'
+                                sh 'docker push mimaraslan/devops-application:latest'
+                            } else {
+                             //    bat 'docker login    -u mimaraslan     -p   %dockerhub%'
+                                 bat 'docker push mimaraslan/devops-application:latest'
+                            }
+                        }
+                 }
+
+            }
+        }
+
+        stage('Kubernetes (K8s)') {
+            steps {
+                 script {
+                      kubernetesDeploy (configs: 'deployment-service.yaml',  kubeconfigId: 'kubernetes')
+                     echo "K8s içinde image'ı çalıştır."
+                 }
+
+            }
+        }
+
+       stage('Clean') {
+            steps {
+
+                script {
+                    if (isUnix()) {
+                        sh "docker image prune -f"
+                    } else {
+                        bat "docker image prune -f"
+                    }
+                }
+                echo "Makinemdeki fazlalık imageları temizle."
+            }
+        }
+
+     */
+
+
+    }
+}
