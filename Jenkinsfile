@@ -5,11 +5,18 @@ pipeline {
         jdk 'Java21'
     }
 
+    environment {
+       APP_NAME = "devops-application"
+
+    }
     stages {
 
         stage('Clean Workspace') {
             steps {
                 cleanWs()
+                echo "Build url: $(BUILD_URL)"
+                echo "BUILD_TAG"
+                echo "BUILD_ID"
             }
         }
 
