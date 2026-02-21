@@ -78,7 +78,19 @@ pipeline {
                         }
                     }
               }
+          stage('Clean') {
+                      steps {
 
+                          script {
+                              if (isUnix()) {
+                                  sh "docker image prune -f"
+                              } else {
+                                  bat "docker image prune -f"
+                              }
+                          }
+                          echo "Makinemdeki fazlalık imageları temizle."
+                      }
+                  }
 
         /*
         stage('Docker Image') {
