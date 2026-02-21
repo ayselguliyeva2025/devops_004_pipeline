@@ -68,15 +68,17 @@ pipeline {
             }
         }
 
-         stage('Docker Image') {
+         stage('Docker Image Build & Push') {
                     steps {
                          script {
                          docker.withRegistry('', DOCKER_PASS) {
                          docker.build(IMAGE_TAG)
+                         docker.push()
                             }
                         }
                     }
               }
+
 
         /*
         stage('Docker Image') {
