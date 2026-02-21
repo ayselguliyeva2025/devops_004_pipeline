@@ -55,6 +55,7 @@ pipeline {
                 }
             }
         }
+
      stage('SonarQube') {
             steps {
                 script {
