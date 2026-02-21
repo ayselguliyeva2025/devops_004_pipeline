@@ -91,6 +91,20 @@ pipeline {
                           echo "Makinemdeki fazlalık imageları temizle."
                       }
                   }
+          stage("Trivy Scan") {
+                      steps {
+                          script {
+                            docker.withRegistry('', DOCKER_PASS) {
+                                  if (isUnix()) {
+                                      sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ${IMAGE_TAG} --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
+                                  } else {
+                                      bat ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ${IMAGE_TAG} --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
+                                  }
+                              }
+                          }
+                      }
+                  }
+
 
           stage('Cleanup Old Docker Images') {
                       steps {
