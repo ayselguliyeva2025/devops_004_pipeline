@@ -15,7 +15,7 @@ pipeline {
 
         stage('SCM GitHub') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mimaraslan/devops_004_pipeline']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ayselguliyeva2025/devops_004_pipeline']])
             }
         }
 
@@ -62,9 +62,9 @@ pipeline {
             steps {
                  script {
                     if (isUnix()) {
-                        sh 'docker build  -t  mimaraslan/devops-application:latest  .'
+                        sh 'docker build  -t  ayselguliyeva2025/devops-application:latest  .'
                     } else {
-                        bat 'docker build  -t  mimaraslan/devops-application:latest  .'
+                        bat 'docker build  -t  ayselguliyeva2025/devops-application:latest  .'
                     }
                 }
             }
@@ -78,11 +78,11 @@ pipeline {
 
 
                             if (isUnix()) {
-                             //   sh 'docker login    -u mimaraslan     -p   %dockerhub%'
-                                sh 'docker push mimaraslan/devops-application:latest'
+                             //   sh 'docker login    -u ayselguliyeva2025     -p   %dockerhub%'
+                                sh 'docker push ayselguliyeva2025/devops-application:latest'
                             } else {
-                             //    bat 'docker login    -u mimaraslan     -p   %dockerhub%'
-                                 bat 'docker push mimaraslan/devops-application:latest'
+                             //    bat 'docker login    -u ayselguliyeva2025     -p   %dockerhub%'
+                                 bat 'docker push ayselguliyeva2025/devops-application:latest'
                             }
                         }
                  }
