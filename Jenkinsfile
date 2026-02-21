@@ -71,7 +71,7 @@ pipeline {
          stage('Docker Image') {
                     steps {
                          script {
-                         docker.withCredentials('', DOCKER_PASS) {
+                         docker.withRegistry('', DOCKER_PASS) {
                          docker.build(IMAGE_TAG)
                             }
                         }
