@@ -10,6 +10,8 @@ pipeline {
        RELEASE = "1.0.${env.BUILD_NUMBER}"
        DOCKER_USER = "ayselguliyeva2025"
        DOCKER_PASS = credentials('TOKEN_DOCKER_ID')
+       IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"
+       IMAGE_TAG = "${IMAGE_NAME}:${RELEASE}"
     }
     stages {
 
