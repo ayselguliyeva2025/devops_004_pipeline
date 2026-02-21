@@ -68,6 +68,16 @@ pipeline {
             }
         }
 
+         stage('Docker Image') {
+                    steps {
+                         script {
+                         docker.withCredentials('', DOCKER_PASS) {
+                         docker.build(IMAGE_TAG)
+                            }
+                        }
+                    }
+              }
+
         /*
         stage('Docker Image') {
             steps {
