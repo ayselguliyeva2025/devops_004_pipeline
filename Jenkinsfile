@@ -73,7 +73,7 @@ pipeline {
                          script {
                          docker.withRegistry('', DOCKER_PASS) {
                          dockerImage = docker.build("${IMAGE_TAG}")
-                         dockerImage.push("${IMAGE_TAG}")
+                         dockerImage.push()
                             }
                         }
                     }
