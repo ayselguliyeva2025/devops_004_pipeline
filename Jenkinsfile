@@ -11,7 +11,7 @@ pipeline {
        DOCKER_USER = "ayselguliyeva2025"
        DOCKER_PASS = "TOKEN_DOCKER_ID"
        IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"
-       IMAGE_TAG = "${IMAGE_NAME}:${RELEASE}"
+       IMAGE_TAG = "${RELEASE}"
     }
     stages {
 
@@ -72,8 +72,8 @@ pipeline {
                     steps {
                          script {
                          docker.withRegistry('', DOCKER_PASS) {
-                         dockerImage = docker.build("${IMAGE_TAG}")
-                         dockerImage.push()
+                         dockerImage = docker.build("${IMAGE_TAG)")
+                         dockerImage.push("$(IMAGE_TAG)")
                             }
                         }
                     }
