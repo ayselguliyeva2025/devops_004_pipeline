@@ -7,15 +7,18 @@ pipeline {
 
     environment {
        APP_NAME = "devops-application"
+       RELEASE - "1.0.${env.BUILD_NUMBER}"
+       DOCKER_USER = "ayselguliyeva2025"
+       DOCKER_PASS = credentials('TOKEN_DOCKER_ID')
     }
     stages {
 
         stage('Clean Workspace') {
             steps {
                 cleanWs()
-//                 echo "Build url: $(BUILD_URL)"
-//                 echo "BUILD_TAG"
-//                 echo "BUILD_ID"
+                echo "Build url: ${BUILD_URL}"
+                echo "BUILD_TAG: ${BUILD_TAG}"
+                echo "BUILD_ID: ${BUILD_ID}"
             }
         }
 
