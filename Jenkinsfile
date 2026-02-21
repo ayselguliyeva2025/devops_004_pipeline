@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-       APP_NAME = ""
+       APP_NAME = "devops-application"
        RELEASE = "1.0.${env.BUILD_NUMBER}"
        DOCKER_USER = "ayselguliyeva"
        DOCKER_PASS = "TOKEN_DOCKER_ID"
